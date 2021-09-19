@@ -2,13 +2,13 @@ const express = require("express");
 const jwt = require("jsonwebtoken");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-// mongoose.connect(
-//   "mongodb://localhost:27017/Login",
-//   { useNewUrlParser: true, useUnifiedTopology: true },
-//   (_) => console.log("Db Connected")
-// );
+mongoose.connect(
+  "mongodb://localhost:27017/Login",
+  { useNewUrlParser: true, useUnifiedTopology: true },
+  (_) => console.log("Db Connected")
+);
 
-// const User = require("./model/User")
+const User = require("./model/User");
 
 const app = express();
 const SECRETKEY = "qwerty@321";
@@ -40,14 +40,26 @@ app.post("/delete-user", verifyTheToken, (req, res) => {
   res.send("User deleted");
 });
 
-app.post("/login", (req, res) => {
+app.post("/register", async (req, res) => {
+  console.log("Got the register request");
+  const { username, password } = req.body;
+  const exist = await User.findOne({ email: username });
+  if (exist) return res.status(400).send("Email alredy exists");
+
+  console.log(req.body);
+  res.send("Register call");
+});
+
+app.post("/login", async (req, res) => {
   console.log("got the request");
   // check for the username and password
   console.log(req.body);
   const { username, password } = req.body;
 
   // database authenticate username and password
-  if (username === "akbarkamran121" && password === "lahore123") {
+  const exist = await User.findOne({ email: username });
+  console.log(exist);
+  if (exist) {
     const user = {
       username,
       age: 22,
@@ -63,7 +75,26 @@ app.post("/login", (req, res) => {
     });
   } else {
     res.sendStatus(403);
+    console.log("Error");
   }
+
+  // if (username === "akbarkamran121" && password === "lahore123") {
+  //   const user = {
+  //     username,
+  //     age: 22,
+  //   };
+  //   jwt.sign({ user }, SECRETKEY, (err, token) => {
+  //     if (err) {
+  //       res.sendStatus(403);
+  //     } else {
+  //       res.json({
+  //         token,
+  //       });
+  //     }
+  //   });
+  // } else {
+  //   res.sendStatus(403);
+  // }
 });
 
 app.listen(8080, () => {
