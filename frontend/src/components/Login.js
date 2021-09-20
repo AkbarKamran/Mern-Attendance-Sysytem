@@ -8,6 +8,7 @@ export default class Login extends React.Component {
   constructor() {
     super();
     let loggedIn = false;
+    let signup1 = false;
 
     const token = localStorage.getItem("token");
     if (token) loggedIn = true;
@@ -17,14 +18,21 @@ export default class Login extends React.Component {
       password: "",
       loggedIn,
       error: "",
+      signup1,
     };
     this.onChange = this.onChange.bind(this);
     this.formSubmit = this.formSubmit.bind(this);
+    this.signup = this.signup.bind(this);
   }
 
   onChange(ev) {
     this.setState({
       [ev.target.name]: ev.target.value,
+    });
+  }
+  signup() {
+    this.setState({
+      signup1: true,
     });
   }
 
@@ -49,6 +57,9 @@ export default class Login extends React.Component {
   render() {
     if (this.state.loggedIn === true) {
       return <Redirect to="/user" />;
+    }
+    if (this.state.signup1 === true) {
+      return <Redirect to="/register" />;
     }
 
     return (
@@ -77,8 +88,10 @@ export default class Login extends React.Component {
                   Forgot password?
                 </a>
                 <input type="submit" value="Login" />
+                <input onClick={this.signup} type="submit" value="SignUp" />
                 {this.state.error}
               </form>
+
               <Redirect to="/" />
             </div>
           </div>

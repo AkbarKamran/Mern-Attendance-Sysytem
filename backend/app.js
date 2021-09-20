@@ -1,5 +1,6 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 mongoose.connect(
@@ -34,6 +35,10 @@ const verifyTheToken = (req, res, next) => {
   }
 };
 
+app.post("/checkin", (req, res) => {
+  console.log(req.body);
+});
+
 app.post("/delete-user", verifyTheToken, (req, res) => {
   // bloack 2
   console.log("User data block 2:", req.userData);
@@ -46,8 +51,21 @@ app.post("/register", async (req, res) => {
   const exist = await User.findOne({ email: username });
   if (exist) return res.status(400).send("Email alredy exists");
 
+  const salt = await bcrypt.genSalt(10);
+  const hashPassword = await bcrypt.hash(password, salt);
+  console.log("HashPassword: ", hashPassword);
+
+  if (!exist) {
+    const newEmploye = new User({
+      email: username,
+      password: hashPassword,
+    });
+    const result = await newEmploye.save();
+    console.log("Result", result);
+    res.send("Email saved");
+  }
+
   console.log(req.body);
-  res.send("Register call");
 });
 
 app.post("/login", async (req, res) => {
@@ -58,8 +76,12 @@ app.post("/login", async (req, res) => {
 
   // database authenticate username and password
   const exist = await User.findOne({ email: username });
-  console.log(exist);
-  if (exist) {
+  if (!exist) {
+    res.sendStatus(403);
+  }
+
+  const vrify = await bcrypt.compare(password, exist.password);
+  if (exist && vrify) {
     const user = {
       username,
       age: 22,

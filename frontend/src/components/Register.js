@@ -17,6 +17,7 @@ export default function Register() {
         .then((res) => {
           console.log(res);
 
+          alert("data Saved");
           history.push("/");
         })
         .catch((err) => {

@@ -1,5 +1,6 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
+import CheckIn from "./CheckIn";
 
 export default class User extends React.Component {
   constructor() {
@@ -26,6 +27,9 @@ export default class User extends React.Component {
     }
     return (
       <>
+        <div class="center1">
+          <CheckIn />
+        </div>
         <div>
           <div class="wrapper ">
             <div
