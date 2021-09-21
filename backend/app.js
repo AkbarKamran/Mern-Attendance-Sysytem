@@ -40,12 +40,6 @@ app.post("/checkin", (req, res) => {
   console.log(req.body);
 });
 
-app.post("/delete-user", verifyTheToken, (req, res) => {
-  // bloack 2
-  console.log("User data block 2:", req.userData);
-  res.send("User deleted");
-});
-
 app.post("/register", async (req, res) => {
   console.log("Got the register request");
   const { username, password } = req.body;
