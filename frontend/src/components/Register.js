@@ -27,6 +27,9 @@ export default function Register() {
         });
     }
   }
+  function onclick2() {
+    history.push("/");
+  }
 
   return (
     <div class="container">
@@ -36,13 +39,20 @@ export default function Register() {
             <div onSubmit={<Redirect to="/login" />} class="box">
               <h1>NeooPal Login</h1>
               <p class="text-muted">Please enter your login and password!</p>
-              <input type="text" placeholder="Username" ref={emailInput} />
+              <input
+                type="text"
+                placeholder="Username"
+                ref={emailInput}
+                required
+              />
               <input
                 type="password"
                 placeholder="Password"
                 ref={passwordInput}
+                required
               />
-              <input onClick={onclick1} type="submit" value="register" />
+              <input onClick={onclick1} type="submit" value="SignUp" />
+              <input onClick={onclick2} type="submit" value="Login" />
             </div>
           </div>
         </div>

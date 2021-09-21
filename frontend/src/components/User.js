@@ -27,7 +27,7 @@ export default class User extends React.Component {
     }
     return (
       <>
-        <div class="center1">
+        <div>
           <CheckIn />
         </div>
         <div>

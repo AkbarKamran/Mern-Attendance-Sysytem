@@ -46,7 +46,7 @@ export default class Login extends React.Component {
         loggedIn: true,
       });
     } catch (err) {
-      alert("Invalid email");
+      alert("Invalid Email or Password");
       window.location.reload();
       this.setState({
         error: err.message,
