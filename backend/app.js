@@ -8,7 +8,7 @@ mongoose.connect(
   { useNewUrlParser: true, useUnifiedTopology: true },
   (_) => console.log("Db Connected")
 );
-
+var user1;
 const User = require("./model/User");
 
 const app = express();
@@ -36,6 +36,7 @@ const verifyTheToken = (req, res, next) => {
 };
 
 app.post("/checkin", (req, res) => {
+  console.log(user1);
   console.log(req.body);
 });
 
@@ -73,6 +74,7 @@ app.post("/login", async (req, res) => {
   // check for the username and password
   console.log(req.body);
   const { username, password } = req.body;
+  user1 = username;
 
   // database authenticate username and password
   const exist = await User.findOne({ email: username });

@@ -8,6 +8,8 @@ export default class CheckIn extends Component {
     this.state = {
       initialTime: "00:00",
       initialTime1: "00:00",
+      initialTime2: "00:00",
+      initialTime3: "00:00",
       hide1: false,
       hide2: true,
       hide3: true,
@@ -112,7 +114,7 @@ export default class CheckIn extends Component {
               <div class="card card-stats">
                 <div class="card-header card-header-success card-header-icon">
                   <p class="card-category">Revenue</p>
-                  <h1 class="card-title">{Moment().format("LTS")}</h1>
+                  <h1 class="card-title">{this.state.initialTime3}</h1>
                 </div>
                 <div class="card-footer">
                   <div class="stats">
@@ -124,11 +126,8 @@ export default class CheckIn extends Component {
             <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
               <div class="card card-stats">
                 <div class="card-header card-header-danger card-header-icon">
-                  <div class="card-icon">
-                    <i class="material-icons">info_outline</i>
-                  </div>
                   <p class="card-category">Fixed Issues</p>
-                  <h3 class="card-title">75</h3>
+                  <h1 class="card-title">{this.state.initialTime2}</h1>
                 </div>
                 <div class="card-footer">
                   <div class="stats">
@@ -141,6 +140,7 @@ export default class CheckIn extends Component {
             <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
               <div class="card card-stats">
                 <div class="card-header card-header-info card-header-icon">
+                  <p class="card-category">Fixed Issues</p>
                   <h1 class="card-title">{this.state.initialTime1}</h1>
                 </div>
                 <div class="card-footer">
