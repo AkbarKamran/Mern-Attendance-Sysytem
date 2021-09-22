@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Axios from "axios";
-import Moment from "moment";
+import Timer1 from "./Stopwatch.";
+import "../App.css";
 
 export default class CheckIn extends Component {
   constructor() {
@@ -13,6 +14,7 @@ export default class CheckIn extends Component {
       hide1: false,
       hide2: true,
       hide3: true,
+      timer1: false,
     };
     this.buttonHide1 = this.buttonHide1.bind(this);
     this.buttonHide2 = this.buttonHide2.bind(this);
@@ -27,7 +29,8 @@ export default class CheckIn extends Component {
     hours = hours % 12;
     hours = hours ? hours : 12; // the hour '0' should be '12'
     minutes = minutes < 10 ? "0" + minutes : minutes;
-    var strTime = hours + ":" + minutes + " " + ampm;
+    var sce = date.getSeconds();
+    var strTime = hours + ":" + minutes + ":" + sce + " " + ampm;
     const ak = strTime;
 
     this.setState({
@@ -48,13 +51,15 @@ export default class CheckIn extends Component {
     hours = hours % 12;
     hours = hours ? hours : 12; // the hour '0' should be '12'
     minutes = minutes < 10 ? "0" + minutes : minutes;
-    var strTime = hours + ":" + minutes + " " + ampm;
+    var sce = date.getSeconds();
+    var strTime = hours + ":" + minutes + ":" + sce + " " + ampm;
     const ak = strTime;
 
     this.setState({
       hide2: false,
       hide1: true,
       initialTime: `${strTime}`,
+      timer1: true,
     });
 
     Axios.post("/checkin", { ak });
@@ -65,6 +70,7 @@ export default class CheckIn extends Component {
       initialTime1: "00:00",
       hide3: true,
       hide1: false,
+      timer1: false,
     });
   }
   render() {
@@ -114,7 +120,9 @@ export default class CheckIn extends Component {
               <div class="card card-stats">
                 <div class="card-header card-header-success card-header-icon">
                   <p class="card-category">Revenue</p>
-                  <h1 class="card-title">{this.state.initialTime3}</h1>
+                  <h1 class="card-title">
+                    {this.state.timer1 ? <Timer1 /> : "00:00"}
+                  </h1>
                 </div>
                 <div class="card-footer">
                   <div class="stats">
