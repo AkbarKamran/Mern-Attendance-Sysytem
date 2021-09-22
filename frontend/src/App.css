@@ -135,3 +135,7 @@ a.socialIcon:hover,
   transition: all 0.8s;
   transition: all 0.8s;
 }
+.react-stopwatch-timer__table {
+  width: 350px !important;
+  height: 60px !important;
+}

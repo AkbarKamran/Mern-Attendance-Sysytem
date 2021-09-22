@@ -6,6 +6,7 @@ import Login from "./components/Login";
 import User from "./components/User";
 import Logout from "./components/Logout";
 import Register from "./components/Register";
+import Report from "./components/Report";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
 
       <Route path="/logout" component={Logout} />
       <Route path="/register" component={Register} />
+      <Route path="/report" component={Report} />
     </Switch>
   );
 }

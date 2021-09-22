@@ -40,9 +40,14 @@ app.post("/checkin", (req, res) => {
   console.log(req.body);
 });
 
+app.post("/report", (req, res) => {
+  console.log(req.body);
+});
+
 app.post("/register", async (req, res) => {
   console.log("Got the register request");
-  const { username, password } = req.body;
+  console.log(req.body);
+  const { username, password, firstName1, lastName1 } = req.body;
   const exist = await User.findOne({ email: username });
   if (exist) return res.status(400).send("Email alredy exists");
 
@@ -52,6 +57,8 @@ app.post("/register", async (req, res) => {
 
   if (!exist) {
     const newEmploye = new User({
+      firstName: firstName1,
+      lastName: lastName1,
       email: username,
       password: hashPassword,
     });

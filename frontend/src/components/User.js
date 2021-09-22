@@ -1,5 +1,5 @@
 import React from "react";
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 import CheckIn from "./CheckIn";
 
 export default class User extends React.Component {
@@ -36,35 +36,36 @@ export default class User extends React.Component {
               class="sidebar"
               data-color="purple"
               data-background-color="black"
-              data-image="../assets/img/sidebar-2.jpg"
             >
-              <br />
-              <br />
-              <br />
-
               <div class="logo">
                 <a
                   href="http://www.creative-tim.com"
                   class="simple-text logo-normal"
                 >
-                  Creative Tim
+                  Neeo Pal
                 </a>
               </div>
               <div class="sidebar-wrapper">
                 <ul class="nav">
-                  <li class="nav-item   ">
-                    <a class="nav-link" href="./dashboard.html">
-                      <p>Dashboard</p>
+                  <li class="nav-item  ">
+                    <a class="nav-link">
+                      <Link to="/">
+                        <p>Dashboard</p>
+                      </Link>
+                    </a>
+                  </li>
+                  <li class="nav-item  ">
+                    <a class="nav-link">
+                      <Link to="/report">
+                        <p>Report</p>
+                      </Link>
                     </a>
                   </li>
                   <li class="nav-item ">
-                    <a class="nav-link" href="./user.html">
-                      <p>Report</p>
-                    </a>
-                  </li>
-                  <li class="nav-item ">
-                    <a class="nav-link" href="./tables.html">
-                      <p>Request Leave Form</p>
+                    <a class="nav-link">
+                      <Link to="/report">
+                        <p>Request Leave Form</p>
+                      </Link>
                     </a>
                   </li>
                 </ul>

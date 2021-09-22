@@ -1,5 +1,6 @@
 import React from "react";
 import Axios from "axios";
+import "./box.css";
 import { useHistory } from "react-router-dom";
 
 import { Redirect } from "react-router";
@@ -7,13 +8,17 @@ import { Redirect } from "react-router";
 export default function Register() {
   let emailInput = React.createRef();
   let passwordInput = React.createRef();
+  let firstName = React.createRef();
+  let lastName = React.createRef();
   const history = useHistory();
 
   function onclick1() {
     const username = emailInput.current.value;
     const password = passwordInput.current.value;
-    if (username && password) {
-      Axios.post("/register", { username, password })
+    const firstName1 = firstName.current.value;
+    const lastName1 = lastName.current.value;
+    if (username && password && firstName1 && lastName1) {
+      Axios.post("/register", { username, password, firstName1, lastName1 })
         .then((res) => {
           console.log(res);
 
@@ -39,6 +44,18 @@ export default function Register() {
             <div onSubmit={<Redirect to="/login" />} class="box">
               <h1>NeooPal Login</h1>
               <p class="text-muted">Please enter your login and password!</p>
+              <input
+                type="text"
+                placeholder="First Name"
+                ref={firstName}
+                required
+              />
+              <input
+                type="text"
+                placeholder="Last Name"
+                ref={lastName}
+                required
+              />
               <input
                 type="text"
                 placeholder="Username"
