@@ -16,5 +16,5 @@ const Timer1 = () => {
     </h1>
   );
 };
-
+console.log("T", Timer1);
 export default Timer1;

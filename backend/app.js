@@ -36,11 +36,14 @@ const verifyTheToken = (req, res, next) => {
 };
 
 app.post("/checkin", (req, res) => {
-  console.log(user1);
+  //console.log(user1);
   console.log(req.body);
 });
 
 app.post("/report", (req, res) => {
+  console.log(req.body);
+});
+app.post("/break", (req, res) => {
   console.log(req.body);
 });
 

@@ -139,3 +139,15 @@ a.socialIcon:hover,
   width: 350px !important;
   height: 60px !important;
 }
+.react-time-box {
+  width: 300px !important;
+  height: 99px !important;
+  text-align: center !important;
+}
+.ak {
+  margin-left: 1000px !important;
+  margin-top: -300px !important;
+}
+.ak1 {
+  margin-left: 120px !important ;
+}

@@ -2,7 +2,7 @@ import React from "react";
 import { Redirect, Link } from "react-router-dom";
 
 import Axios from "axios";
-import "../App";
+import "../App.css";
 
 export default class Report extends React.Component {
   constructor() {
@@ -40,7 +40,7 @@ export default class Report extends React.Component {
     const { todayReport, tomorroeTask, dependency } = this.state;
     try {
       Axios.post("/report", { todayReport, tomorroeTask, dependency }).then(
-        window.location.reload()
+        (window.location = "http://localhost:3000/user")
       );
     } catch (err) {
       console.log(err);
@@ -180,14 +180,32 @@ export default class Report extends React.Component {
                     </div>
                   </div>
 
-                  <div class="col-md-4">
+                  <div class="ak1">
                     <h1 class="btn btn-primary">
                       <b> Check In</b>
                     </h1>
                     <div class="card card-stats">
                       <div class="card-header card-header-danger card-header-icon">
-                        <p class="card-category">Fixed Issues</p>
-                        <h1 class="card-title">00:00</h1>
+                        <p class="card-category">Check In</p>
+                        <h1 class="card-title">00:00:00</h1>
+                      </div>
+                      <div class="card-footer">
+                        <div class="stats">
+                          <i class="material-icons">local_offer</i> Tracked from
+                          Github
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="ak">
+                    <h1 class="btn btn-primary">
+                      <b> Check Out</b>
+                    </h1>
+                    <div class="card card-stats">
+                      <div class="card-header card-header-danger card-header-icon">
+                        <p class="card-category">Check Out</p>
+                        <h1 class="card-title">00:00:00</h1>
                       </div>
                       <div class="card-footer">
                         <div class="stats">
