@@ -42,7 +42,7 @@ export default class CheckIn extends Component {
       hide3: false,
     });
 
-    Axios.post("/checkin", { checkOutTime });
+    Axios.post("/checkout", { checkOutTime });
   }
   buttonHide1() {
     // var time = new Date();

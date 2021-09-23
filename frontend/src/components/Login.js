@@ -9,6 +9,8 @@ export default class Login extends React.Component {
     super();
     let loggedIn = false;
     let signup1 = false;
+    var alert1 = false;
+    var alert2 = false;
 
     const token = localStorage.getItem("token");
     if (token) loggedIn = true;
@@ -19,6 +21,8 @@ export default class Login extends React.Component {
       loggedIn,
       error: "",
       signup1,
+      alert1,
+      alert2,
     };
     this.onChange = this.onChange.bind(this);
     this.formSubmit = this.formSubmit.bind(this);
@@ -39,18 +43,36 @@ export default class Login extends React.Component {
   async formSubmit(ev) {
     ev.preventDefault();
     const { username, password } = this.state;
-    try {
-      const token = await Axios.post("/login", { username, password });
-      localStorage.setItem("token", token);
+    if (username && password) {
+      try {
+        const token = await Axios.post("/login", { username, password });
+        localStorage.setItem("token", token);
+        this.setState({
+          loggedIn: true,
+        });
+      } catch (err) {
+        this.setState({
+          alert2: true,
+        });
+        setTimeout(() => {
+          this.setState({
+            alert2: false,
+          });
+        }, 3000);
+        window.location.reload();
+        this.setState({
+          error: err.message,
+        });
+      }
+    } else {
       this.setState({
-        loggedIn: true,
+        alert1: true,
       });
-    } catch (err) {
-      alert("Invalid Email or Password");
-      window.location.reload();
-      this.setState({
-        error: err.message,
-      });
+      setTimeout(() => {
+        this.setState({
+          alert1: false,
+        });
+      }, 2000);
     }
   }
 
@@ -64,6 +86,16 @@ export default class Login extends React.Component {
 
     return (
       <div class="container">
+        {this.state.alert1 && (
+          <div class="alert alert-primary" role="alert">
+            Cannot Submit empty Fields
+          </div>
+        )}
+        {this.state.alert2 && (
+          <div class="alert alert-primary" role="alert">
+            Invalid Email or Password
+          </div>
+        )}
         <div class="row">
           <div class="col-md-6">
             <div class="card">

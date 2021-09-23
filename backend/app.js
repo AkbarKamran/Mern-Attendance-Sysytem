@@ -35,8 +35,23 @@ const verifyTheToken = (req, res, next) => {
   }
 };
 
-app.post("/checkin", (req, res) => {
-  //console.log(user1);
+app.post("/checkin", async (req, res) => {
+  // console.log(user1);
+  console.log(req.body);
+  // const exist = await User.findOne({ email: user1 });
+  // var id = exist.id;
+  // console.log("id", id);
+
+  // User.updateOne({ _id: id }, { checkIn: req.body.checkInTime }).then(
+  //   console.log("Data Updated")
+  // );
+});
+app.post("/checkout", (req, res) => {
+  console.log(user1);
+  console.log(req.body);
+});
+
+app.post("/request", (req, res) => {
   console.log(req.body);
 });
 
@@ -64,6 +79,7 @@ app.post("/register", async (req, res) => {
       lastName: lastName1,
       email: username,
       password: hashPassword,
+      checkIn: "00:00:00",
     });
     const result = await newEmploye.save();
     console.log("Result", result);
@@ -105,30 +121,8 @@ app.post("/login", async (req, res) => {
     res.sendStatus(403);
     console.log("Error");
   }
-
-  // if (username === "akbarkamran121" && password === "lahore123") {
-  //   const user = {
-  //     username,
-  //     age: 22,
-  //   };
-  //   jwt.sign({ user }, SECRETKEY, (err, token) => {
-  //     if (err) {
-  //       res.sendStatus(403);
-  //     } else {
-  //       res.json({
-  //         token,
-  //       });
-  //     }
-  //   });
-  // } else {
-  //   res.sendStatus(403);
-  // }
 });
 
 app.listen(8080, () => {
   console.log("Server started at port 8080");
 });
-
-/**
- * eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJuYW1lIjoiY29kZXJzaW5naCIsImFnZSI6MjJ9LCJpYXQiOjE1NzQyNDUwODh9.WI4JkvIMVer45766QyMQrdJgpGKurtB5TQeuyIcQQk0
- */

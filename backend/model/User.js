@@ -18,6 +18,7 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  checkIn: [String],
 });
 
 module.exports = mongoose.model("employes", UserSchema);
