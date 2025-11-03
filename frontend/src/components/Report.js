@@ -188,8 +188,15 @@ export default class Report extends React.Component {
               <ul class="nav">
                 <li class="nav-item  ">
                   <a class="nav-link">
-                    <Link to="/">
+                    <Link to="/user">
                       <p>Dashboard</p>
+                    </Link>
+                  </a>
+                </li>
+                <li class="nav-item  ">
+                  <a class="nav-link">
+                    <Link to="/attendance-history">
+                      <p>Attendance History</p>
                     </Link>
                   </a>
                 </li>
