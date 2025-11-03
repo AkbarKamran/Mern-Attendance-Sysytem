@@ -16,6 +16,8 @@ export default class User extends React.Component {
   }
 
   logout() {
+    localStorage.removeItem("token");
+    localStorage.removeItem("userEmail");
     this.setState({
       loggedIn: false,
     });
