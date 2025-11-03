@@ -55,9 +55,16 @@ export default function Break(props) {
     num++;
     startvalue = false;
     const breaktime = formatTime();
-    Axios.post("/break", { breaktime }).then(window.location.reload());
-
-    // window.location.reload()
+    const userEmail = localStorage.getItem("userEmail");
+    
+    Axios.post("/break", { breaktime, email: userEmail })
+      .then((response) => {
+        console.log("Break time saved:", response.data);
+        // Optionally reload or show success message
+      })
+      .catch((error) => {
+        console.error("Break save error:", error.response?.data || error.message);
+      });
   }
 
   return (
