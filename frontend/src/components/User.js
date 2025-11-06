@@ -1,6 +1,7 @@
 import React from "react";
 import { Redirect, Link } from "react-router-dom";
 import CheckIn from "./CheckIn";
+import TodayStatus from "./TodayStatus";
 
 export default class User extends React.Component {
   constructor() {
@@ -114,6 +115,15 @@ export default class User extends React.Component {
             </div>
           </div>
         </nav>
+        <div class="main-panel">
+          <div class="content">
+            <div class="container-fluid">
+              <div class="row" style={{ marginTop: "20px" }}>
+                <TodayStatus />
+              </div>
+            </div>
+          </div>
+        </div>
         <div>
           <CheckIn />
         </div>
