@@ -34,6 +34,7 @@ export default class CheckIn extends Component {
     var sce = date.getSeconds();
     var strTime = hours + ":" + minutes + ":" + sce + " " + ampm;
     const checkOutTime = strTime;
+    const userEmail = localStorage.getItem("userEmail");
 
     this.setState({
       initialTime1: `${strTime}`,
@@ -42,7 +43,13 @@ export default class CheckIn extends Component {
       hide3: false,
     });
 
-    Axios.post("/checkout", { checkOutTime });
+    Axios.post("/checkout", { checkOutTime, email: userEmail })
+      .then((response) => {
+        console.log("Check-out successful:", response.data);
+      })
+      .catch((error) => {
+        console.error("Check-out error:", error.response?.data || error.message);
+      });
   }
   buttonHide1() {
     // var time = new Date();
@@ -56,6 +63,7 @@ export default class CheckIn extends Component {
     var sce = date.getSeconds();
     var strTime = hours + ":" + minutes + ":" + sce + " " + ampm;
     const checkInTime = strTime;
+    const userEmail = localStorage.getItem("userEmail");
 
     this.setState({
       hide2: false,
@@ -64,7 +72,23 @@ export default class CheckIn extends Component {
       timer1: true,
     });
 
-    Axios.post("/checkin", { checkInTime });
+    Axios.post("/checkin", { checkInTime, email: userEmail })
+      .then((response) => {
+        console.log("Check-in successful:", response.data);
+      })
+      .catch((error) => {
+        console.error("Check-in error:", error.response?.data || error.message);
+        // Reset state if check-in fails
+        if (error.response?.status === 400) {
+          alert(error.response.data.error || "Unable to check in");
+          this.setState({
+            hide2: true,
+            hide1: false,
+            initialTime: "00:00:00",
+            timer1: false,
+          });
+        }
+      });
   }
   buttonHide3() {
     this.setState({
