@@ -45,8 +45,11 @@ export default class Login extends React.Component {
     const { username, password } = this.state;
     if (username && password) {
       try {
-        const token = await Axios.post("/login", { username, password });
+        const res = await Axios.post("/login", { username, password });
+        const { token, firstName } = res.data;
         localStorage.setItem("token", token);
+        localStorage.setItem("userEmail", username);
+        if (firstName) localStorage.setItem("userFirstName", firstName);
         this.setState({
           loggedIn: true,
         });

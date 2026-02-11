@@ -106,7 +106,8 @@ app.post("/login", async (req, res) => {
   if (exist && vrify) {
     const user = {
       username,
-      age: 22,
+      firstName: exist.firstName,
+      lastName: exist.lastName,
     };
     jwt.sign({ user }, SECRETKEY, (err, token) => {
       if (err) {
@@ -114,6 +115,8 @@ app.post("/login", async (req, res) => {
       } else {
         res.json({
           token,
+          firstName: exist.firstName,
+          lastName: exist.lastName,
         });
       }
     });
