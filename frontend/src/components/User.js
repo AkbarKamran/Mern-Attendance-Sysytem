@@ -2,6 +2,7 @@ import React from "react";
 import { Redirect, Link } from "react-router-dom";
 import CheckIn from "./CheckIn";
 import TodayStatus from "./TodayStatus";
+import WelcomeGreeting from "./WelcomeGreeting";
 
 export default class User extends React.Component {
   constructor() {
@@ -18,7 +19,10 @@ export default class User extends React.Component {
 
   logout() {
     localStorage.removeItem("token");
-    localStorage.removeItem("userEmail");
+
+
+    localStorage.removeItem("userFirstName");
+
     this.setState({
       loggedIn: false,
     });
@@ -120,6 +124,11 @@ export default class User extends React.Component {
         <div class="main-panel">
           <div class="content">
             <div class="container-fluid">
+              <div class="row" style={{ marginTop: "20px", marginBottom: "8px" }}>
+                <div class="col-md-12">
+                  <WelcomeGreeting />
+                </div>
+              </div>
               <div class="row" style={{ marginTop: "20px" }}>
                 <TodayStatus />
               </div>

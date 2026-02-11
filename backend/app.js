@@ -311,9 +311,11 @@ app.post("/login", async (req, res) => {
 
     // Create JWT token
     const user = {
+
       username: exist.email,
       firstName: exist.firstName,
       lastName: exist.lastName
+
     };
 
     jwt.sign({ user }, SECRETKEY, (err, token) => {
@@ -324,6 +326,8 @@ app.post("/login", async (req, res) => {
         console.log("Login successful for:", username);
         res.json({
           token,
+          firstName: exist.firstName,
+          lastName: exist.lastName,
         });
       }
     });
