@@ -17,19 +17,29 @@ export default class CheckIn extends Component {
       hide3: true,
       timer1: false,
       akb: false,
+      toast: null,
     };
+    this.toastTimer = null;
     this.buttonHide1 = this.buttonHide1.bind(this);
     this.buttonHide2 = this.buttonHide2.bind(this);
     this.buttonHide3 = this.buttonHide3.bind(this);
   }
+  showToast(message, type = "success") {
+    if (this.toastTimer) clearTimeout(this.toastTimer);
+    this.setState({ toast: { message, type } });
+    this.toastTimer = setTimeout(() => {
+      this.setState({ toast: null });
+      this.toastTimer = null;
+    }, 3000);
+  }
+
   buttonHide2() {
-    // var time = new Date();
     var date = new Date();
     var hours = date.getHours();
     var minutes = date.getMinutes();
     var ampm = hours >= 12 ? "pm" : "am";
     hours = hours % 12;
-    hours = hours ? hours : 12; // the hour '0' should be '12'
+    hours = hours ? hours : 12;
     minutes = minutes < 10 ? "0" + minutes : minutes;
     var sce = date.getSeconds();
     var strTime = hours + ":" + minutes + ":" + sce + " " + ampm;
@@ -44,21 +54,17 @@ export default class CheckIn extends Component {
     });
 
     Axios.post("/checkout", { checkOutTime, email: userEmail })
-      .then((response) => {
-        console.log("Check-out successful:", response.data);
-      })
-      .catch((error) => {
-        console.error("Check-out error:", error.response?.data || error.message);
-      });
+      .then(() => this.showToast("Check-out recorded!", "success"))
+      .catch(() => this.showToast("Could not record check-out. Try again.", "error"));
   }
+
   buttonHide1() {
-    // var time = new Date();
     var date = new Date();
     var hours = date.getHours();
     var minutes = date.getMinutes();
     var ampm = hours >= 12 ? "pm" : "am";
     hours = hours % 12;
-    hours = hours ? hours : 12; // the hour '0' should be '12'
+    hours = hours ? hours : 12;
     minutes = minutes < 10 ? "0" + minutes : minutes;
     var sce = date.getSeconds();
     var strTime = hours + ":" + minutes + ":" + sce + " " + ampm;
@@ -73,21 +79,16 @@ export default class CheckIn extends Component {
     });
 
     Axios.post("/checkin", { checkInTime, email: userEmail })
-      .then((response) => {
-        console.log("Check-in successful:", response.data);
-      })
-      .catch((error) => {
-        console.error("Check-in error:", error.response?.data || error.message);
-        // Reset state if check-in fails
-        if (error.response?.status === 400) {
-          alert(error.response.data.error || "Unable to check in");
-          this.setState({
-            hide2: true,
-            hide1: false,
-            initialTime: "00:00:00",
-            timer1: false,
-          });
-        }
+      .then(() => this.showToast("Check-in recorded!", "success"))
+      .catch((err) => {
+        const msg = err.response?.data?.error || "Could not record check-in. Try again.";
+        this.showToast(msg, "error");
+        this.setState({
+          hide2: true,
+          hide1: false,
+          initialTime: "00:00:00",
+          timer1: false,
+        });
       });
   }
   buttonHide3() {
@@ -101,8 +102,22 @@ export default class CheckIn extends Component {
     });
   }
   render() {
+    const { toast } = this.state;
     return (
       <>
+        {toast && (
+          <div
+            className={
+              "checkin-toast " +
+              (toast.type === "error" ? "checkin-toast-error" : "checkin-toast-success")
+            }
+            role="alert"
+          >
+            {toast.type === "success" && <span className="checkin-toast-icon">✓</span>}
+            {toast.type === "error" && <span className="checkin-toast-icon">!</span>}
+            {toast.message}
+          </div>
+        )}
         <div class="center1">
           <button
             hidden={this.state.hide1}
