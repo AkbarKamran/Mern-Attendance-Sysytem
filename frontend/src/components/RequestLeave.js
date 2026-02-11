@@ -79,14 +79,21 @@ export default class RequestLeave extends React.Component {
   async formSubmit(ev) {
     ev.preventDefault();
     const { fromTime, toTime, reason } = this.state;
+    const userEmail = localStorage.getItem("userEmail");
     const holidayleave = "Holiday Request";
     if (fromTime && toTime && reason) {
       try {
-        Axios.post("/request", { holidayleave, fromTime, toTime, reason }).then(
-          (window.location = "http://localhost:3000/user")
-        );
+        await Axios.post("/request", { 
+          type: holidayleave, 
+          startDate: fromTime, 
+          endDate: toTime, 
+          reason,
+          email: userEmail 
+        });
+        window.location = "http://localhost:3000/user";
       } catch (err) {
         console.log(err);
+        alert("Error submitting request. Please try again.");
       }
     } else {
       this.setState({
@@ -102,14 +109,21 @@ export default class RequestLeave extends React.Component {
   async formSubmit1(ev) {
     ev.preventDefault();
     const { fromTime, toTime, reason } = this.state;
+    const userEmail = localStorage.getItem("userEmail");
     const short = "Short Leave";
     if (fromTime && toTime && reason) {
       try {
-        Axios.post("/request", { short, fromTime, toTime, reason }).then(
-          (window.location = "http://localhost:3000/user")
-        );
+        await Axios.post("/request", { 
+          type: short, 
+          startDate: fromTime, 
+          endDate: toTime, 
+          reason,
+          email: userEmail 
+        });
+        window.location = "http://localhost:3000/user";
       } catch (err) {
         console.log(err);
+        alert("Error submitting request. Please try again.");
       }
     } else {
       this.setState({
@@ -125,14 +139,21 @@ export default class RequestLeave extends React.Component {
   async formSubmit2(ev) {
     ev.preventDefault();
     const { toTime, reason } = this.state;
+    const userEmail = localStorage.getItem("userEmail");
     const hardwareRequest = "Hardware Request";
-    if (toTime && hardwareRequest) {
+    if (toTime && reason) {
       try {
-        Axios.post("/request", { hardwareRequest, toTime, reason }).then(
-          (window.location = "http://localhost:3000/user")
-        );
+        await Axios.post("/request", { 
+          type: hardwareRequest, 
+          startDate: toTime, 
+          endDate: toTime, 
+          reason,
+          email: userEmail 
+        });
+        window.location = "http://localhost:3000/user";
       } catch (err) {
         console.log(err);
+        alert("Error submitting request. Please try again.");
       }
     } else {
       this.setState({
@@ -149,14 +170,21 @@ export default class RequestLeave extends React.Component {
   async formSubmit3(ev) {
     ev.preventDefault();
     const { toTime, reason } = this.state;
+    const userEmail = localStorage.getItem("userEmail");
     const anyOtherRequest = "Any Other Requests";
     if (toTime && reason) {
       try {
-        Axios.post("/request", { anyOtherRequest, toTime, reason }).then(
-          (window.location = "http://localhost:3000/user")
-        );
+        await Axios.post("/request", { 
+          type: anyOtherRequest, 
+          startDate: toTime, 
+          endDate: toTime, 
+          reason,
+          email: userEmail 
+        });
+        window.location = "http://localhost:3000/user";
       } catch (err) {
         console.log(err);
+        alert("Error submitting request. Please try again.");
       }
     } else {
       this.setState({
@@ -202,8 +230,15 @@ export default class RequestLeave extends React.Component {
               <ul class="nav">
                 <li class="nav-item  ">
                   <a class="nav-link">
-                    <Link to="/">
+                    <Link to="/user">
                       <p>Dashboard</p>
+                    </Link>
+                  </a>
+                </li>
+                <li class="nav-item  ">
+                  <a class="nav-link">
+                    <Link to="/attendance-history">
+                      <p>Attendance History</p>
                     </Link>
                   </a>
                 </li>

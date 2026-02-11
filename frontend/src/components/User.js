@@ -1,6 +1,8 @@
 import React from "react";
 import { Redirect, Link } from "react-router-dom";
 import CheckIn from "./CheckIn";
+import TodayStatus from "./TodayStatus";
+import WelcomeGreeting from "./WelcomeGreeting";
 
 export default class User extends React.Component {
   constructor() {
@@ -16,6 +18,11 @@ export default class User extends React.Component {
   }
 
   logout() {
+    localStorage.removeItem("token");
+
+
+    localStorage.removeItem("userFirstName");
+
     this.setState({
       loggedIn: false,
     });
@@ -114,6 +121,20 @@ export default class User extends React.Component {
             </div>
           </div>
         </nav>
+        <div class="main-panel">
+          <div class="content">
+            <div class="container-fluid">
+              <div class="row" style={{ marginTop: "20px", marginBottom: "8px" }}>
+                <div class="col-md-12">
+                  <WelcomeGreeting />
+                </div>
+              </div>
+              <div class="row" style={{ marginTop: "20px" }}>
+                <TodayStatus />
+              </div>
+            </div>
+          </div>
+        </div>
         <div>
           <CheckIn />
         </div>
@@ -136,8 +157,15 @@ export default class User extends React.Component {
                 <ul class="nav">
                   <li class="nav-item  ">
                     <a class="nav-link">
-                      <Link to="/">
+                      <Link to="/user">
                         <p>Dashboard</p>
+                      </Link>
+                    </a>
+                  </li>
+                  <li class="nav-item  ">
+                    <a class="nav-link">
+                      <Link to="/attendance-history">
+                        <p>Attendance History</p>
                       </Link>
                     </a>
                   </li>

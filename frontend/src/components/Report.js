@@ -40,13 +40,20 @@ export default class Report extends React.Component {
   async formSubmit(ev) {
     ev.preventDefault();
     const { todayReport, tomorroeTask, dependency } = this.state;
-    if (todayReport && todayReport && dependency) {
+    const userEmail = localStorage.getItem("userEmail");
+    
+    if (todayReport && tomorroeTask && dependency) {
       try {
-        Axios.post("/report", { todayReport, tomorroeTask, dependency }).then(
-          (window.location = "http://localhost:3000/user")
-        );
+        await Axios.post("/report", { 
+          todayReport, 
+          tomorroeTask, 
+          dependency,
+          email: userEmail 
+        });
+        window.location = "http://localhost:3000/user";
       } catch (err) {
         console.log(err);
+        alert("Error submitting report. Please try again.");
       }
     } else {
       this.setState({
@@ -181,8 +188,15 @@ export default class Report extends React.Component {
               <ul class="nav">
                 <li class="nav-item  ">
                   <a class="nav-link">
-                    <Link to="/">
+                    <Link to="/user">
                       <p>Dashboard</p>
+                    </Link>
+                  </a>
+                </li>
+                <li class="nav-item  ">
+                  <a class="nav-link">
+                    <Link to="/attendance-history">
+                      <p>Attendance History</p>
                     </Link>
                   </a>
                 </li>

@@ -14,7 +14,9 @@ export default class AttendanceHistory extends React.Component {
       loggedIn,
       attendance: [],
       loading: true,
+
       refreshing: false,
+
       error: null,
     };
   }
@@ -23,16 +25,13 @@ export default class AttendanceHistory extends React.Component {
     this.fetchAttendanceHistory();
   }
 
-  fetchAttendanceHistory = async (isRefresh = false) => {
-    if (!isRefresh) {
-      this.setState({ loading: true, error: null });
-    } else {
-      this.setState({ refreshing: true, error: null });
-    }
+
+  fetchAttendanceHistory = async () => {
     try {
       const userEmail = localStorage.getItem("userEmail");
       if (!userEmail) {
-        this.setState({ loading: false, refreshing: false, error: "User email not found" });
+        this.setState({ loading: false, error: "User email not found" });
+
         return;
       }
 
@@ -40,7 +39,8 @@ export default class AttendanceHistory extends React.Component {
       this.setState({
         attendance: response.data.attendance || [],
         loading: false,
-        refreshing: false,
+
+
       });
     } catch (error) {
       console.error("Error fetching attendance:", error);
